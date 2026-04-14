@@ -16,11 +16,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Determine release tag
-        id: release_tag
-        run: |
-          echo "tag=commit-${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
-
       - name: Compile Typst source
         run: |
           docker run --rm \
@@ -32,10 +27,11 @@ jobs:
       - name: Publish PDF to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.release_tag.outputs.tag }}
-          name: PDF build for ${{ github.sha }}
-          generate_release_notes: true
+          tag_name: latest
+          name: Latest PDF
+          body: |
+            Automated Typst build for commit `${{ github.sha }}`.
           target_commitish: ${{ github.sha }}
-          make_latest: false
-          prerelease: true
+          make_latest: true
+          prerelease: false
           files: main.pdf
