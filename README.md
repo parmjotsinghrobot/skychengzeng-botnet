@@ -22,6 +22,6 @@ The observed activity appears to be a coordinated SEO spam operation:
 
 Please read the full PDF for complete evidence, screenshots, and technical details:
 
-- [main.pdf](main.pdf)
+- Download it from the repository's latest GitHub Release assets
 
 (Authoring source is available in [main.typ](main.typ).)

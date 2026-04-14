@@ -1,0 +1,41 @@
+name: Build Typst PDF Release
+
+on:
+  push:
+    branches:
+      - "**"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Determine release tag
+        id: release_tag
+        run: |
+          echo "tag=commit-${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+
+      - name: Compile Typst source
+        run: |
+          docker run --rm \
+            -v "$PWD":/work \
+            -w /work \
+            ghcr.io/typst/typst:latest \
+            compile main.typ main.pdf
+
+      - name: Publish PDF to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.release_tag.outputs.tag }}
+          name: PDF build for ${{ github.sha }}
+          generate_release_notes: true
+          target_commitish: ${{ github.sha }}
+          make_latest: false
+          prerelease: true
+          files: main.pdf
