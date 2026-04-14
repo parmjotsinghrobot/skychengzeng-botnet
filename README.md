@@ -22,6 +22,6 @@ The observed activity appears to be a coordinated SEO spam operation:
 
 Please read the full PDF for complete evidence, screenshots, and technical details:
 
-- Download it from the repository's latest GitHub Release assets
+- Download it from the repository's [latest GitHub Release assets](https://github.com/parmjotsinghrobot/skychengzeng-botnet/releases/latest)
 
 (Authoring source is available in [main.typ](main.typ).)
